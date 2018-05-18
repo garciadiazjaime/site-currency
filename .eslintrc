@@ -42,5 +42,13 @@
     "import/export": 1,
     "import/no-extraneous-dependencies": 0,
     "import/extensions": 0
+  },
+  "globals": {
+    "jest": true,
+    "describe": false,
+    "it": false,
+    "expect": false,
+    "beforeEach": false,
+    "afterEach": false
   }
 }

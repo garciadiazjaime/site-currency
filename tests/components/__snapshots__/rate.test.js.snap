@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rate main matches snapshot 1`] = `
+<div>
+  : 
+</div>
+`;
+
+exports[`Rate main renders props when passed 1`] = `
+<div>
+  currency
+  : 
+  rate
+</div>
+`;

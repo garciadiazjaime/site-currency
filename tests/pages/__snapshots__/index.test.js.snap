@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IndexPage main matches snapshot 1`] = `
+<div>
+  Tipo de Cambio: 
+  <br />
+  happy-rates
+  <br />
+  Venta/Compra del Dolar en México:
+  happy-rates
+</div>
+`;

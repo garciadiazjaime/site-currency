@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Usdmxn main matches snapshot 1`] = `
+<div>
+  : 
+   / 
+</div>
+`;
+
+exports[`Usdmxn main renders props when passed 1`] = `
+<div>
+  entity
+  : 
+  buy
+   / 
+  sale
+</div>
+`;
