@@ -1,9 +1,8 @@
-# ETL Currency
+# Site Currency
 
-[![Build Status](https://travis-ci.org/garciadiazjaime/etl-currency.svg)](https://travis-ci.org/garciadiazjaime/etl-currency)
+[![Build Status](https://travis-ci.org/garciadiazjaime/site-currency.svg)](https://travis-ci.org/garciadiazjaime/site-currency)
 
-**Extract Transform Load** currencies from different sources.
-The goal is to pull data from third party api's and save it to our API.
+The goal is to display currency rates and USD/MXN buy/sale on Mexico.
 
 Development
 ----
@@ -12,38 +11,25 @@ Development
 
 `yarn`
 
-### Build app
+### Run Dev
 
-`yarn build -- --watch`
-
-#### Run ETLs (build needs to be ran before)
-
-`yarn start`
+`yarn dev`
 
 ### Run tests
-`yarn test -- --watch`
+`yarn test`
 
-### Watch lint
-`yarn lint -- --watch`
+### Run lint
+`yarn lint`
 
+### Export static site
+`yarn build`
 
-Sources
-----
-
-### Fixer documentation
-https://fixer.io/documentation
-
-This source requires registration in order to get a token.
-
-### Coinmarketcap
-https://coinmarketcap.com/api/
-
-### eldolarenmexico
-https://eldolarenmexico.com/
-- [Banorte](goo.gl/UaTgzD)
-
-### eldolar
-http://www.eldolar.info/es-MX/mexico/dia/hoy
+### gsutil commands
+`gsutil mb gs://currency.mintitmedia.com/`
+`gsutil -m rm -r gs://currency.mintitmedia.com/*`
+`gsutil -m cp -r ./ gs://currency.mintitmedia.com/`
+`gsutil iam ch allUsers:objectViewer gs://currency.mintitmedia.com/`
+`gsutil web get gs://currency.mintitmedia.com`
 
 
 How to add a new source
