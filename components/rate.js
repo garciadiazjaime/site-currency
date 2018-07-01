@@ -1,15 +1,17 @@
 import React from 'react'
 
-const Rate = ({ currency, rate }) => (
+import{ truncate } from '../utils/rateUtil'
+
+const Rate = ({ currency, base, rate }) => (
   <div>
-    <img src="https://cdn.countryflags.com/thumbs/switzerland/flag-800.png" alt={currency} />
+    <img src={`/static/images/flags/${currency}.jpg`} alt={currency} />
     <h3>{currency}</h3>
-    <b>{rate}</b>
+    <b>{truncate(base / rate, 2)}</b>
     <style jsx>{`
       div {
         display: flex;
         padding: 6px 0;
-        margin: 12px 0;
+        margin: 0 0 12px;
         padding: 12px;
         border-bottom: 1px solid #CCC;
       }

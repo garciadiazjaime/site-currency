@@ -9,7 +9,8 @@
     "build": "next build && next export",
     "start": "next start",
     "lint": "eslint --ext .js,.js .",
-    "test": "jest"
+    "test": "jest",
+    "deploy": "gsutil -m rm -r gs://currency.mintitmedia.com/* && cd ./out && gsutil -m cp -r ./ gs://currency.mintitmedia.com/"
   },
   "jest": {
     "setupFiles": [
