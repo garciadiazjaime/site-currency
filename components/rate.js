@@ -2,11 +2,11 @@ import React from 'react'
 
 import{ truncate } from '../utils/rateUtil'
 
-const Rate = ({ currency, base, rate }) => (
+const Rate = ({ currency, rate, baseCurrency }) => currency && rate && baseCurrency && (
   <div>
     <img src={`/static/images/flags/${currency}.jpg`} alt={currency} />
     <h3>{currency}</h3>
-    <b>{truncate(base / rate, 2)}</b>
+    <b>{truncate(rate, 2)}</b>
     <style jsx>{`
       div {
         display: flex;
@@ -29,6 +29,6 @@ const Rate = ({ currency, base, rate }) => (
     `}
     </style>
   </div>
-)
+) || null
 
 export default Rate

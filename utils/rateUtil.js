@@ -1,16 +1,28 @@
 import React from 'react'
 
-export function renderRatesFor(Component, rates) {
+export function formatRates(rates, currency) {
+  const baseCurrency = rates.find(rate => rate.currency === currency)
+
+  return rates
+    .filter(rate => rate.currency !== currency)
+    .map(rate => Object.assign({}, rate, {
+      rate: 1 / rate.rate * baseCurrency.rate
+    }))
+}
+
+export function getBaseRate(rates, currency) {
+  return rates.find(rate => rate.currency === currency )
+}
+
+export function renderRatesFor(Component, rates, baseCurrency) {
   if (!rates || !rates.length) {
     return null
   }
 
-  const { rate: MXN } = rates.find(rate => rate.currency === 'MXN' )
-
   return rates
     .sort((a, b) => a.rate - b.rate)
     .filter(rate => rate.currency !== 'MXN')
-    .map(rate => <Component {...rate} base={MXN} key={rate.currency} />)
+    .map(rate => <Component {...rate} baseCurrency={baseCurrency} key={rate.currency} />)
 }
 
 export function truncate(value, digits) {
