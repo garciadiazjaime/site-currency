@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "eslint --ext .js,.js .",
     "test": "jest",
-    "deploy": "gsutil -m rm -r gs://currency.mintitmedia.com/* && cd ./out && gsutil -m cp -r ./ gs://currency.mintitmedia.com/"
+    "deploy": "yarn build && gsutil -m rm -r gs://currency.mintitmedia.com/* && cd ./out && gsutil -m cp -r ./ gs://currency.mintitmedia.com/"
   },
   "jest": {
     "setupFiles": [
@@ -23,7 +23,7 @@
   "dependencies": {
     "babel-preset-react": "^6.24.1",
     "isomorphic-unfetch": "^2.0.0",
-    "next": "^6.0.3",
+    "next": "^6.1.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
   },

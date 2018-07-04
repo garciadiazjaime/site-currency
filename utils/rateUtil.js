@@ -10,7 +10,7 @@ export function renderRatesFor(Component, rates) {
   return rates
     .sort((a, b) => a.rate - b.rate)
     .filter(rate => rate.currency !== 'MXN')
-    .map(rate => <Component {...rate} base={MXN} key={rate._id} />)
+    .map(rate => <Component {...rate} base={MXN} key={rate.currency} />)
 }
 
 export function truncate(value, digits) {
