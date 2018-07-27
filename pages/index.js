@@ -20,60 +20,54 @@ class IndexPage extends Component {
       const baseCurrency = 'MXN'
       this.setState({
         rates: formatRates(rates, baseCurrency),
-        baseCurrency: getBaseRate(rates, baseCurrency)
+        baseCurrency: getBaseRate(rates, baseCurrency),
+        innerWidth: window.innerWidth
       })
       this.createBarChart(rates)
     }
   }
 
   createBarChart() {
+    const innerWidth = window.innerWidth
+
     const { rates } = this.state
     const data = rates.map(rate => rate.rate) || []
-    const size = [500, 500]
-    const barWidth = 50
+    // const size = [500, 500]
+    const barWidth = innerWidth / rates.length // 50
     const node = this.node
     const dataMax = max(data)
     const yScale = scaleLinear()
        .domain([0, dataMax])
-       .range([0, size[1]])
+       .range([0, 500])
+    
 
     select(node)
         .selectAll('rect')
         .data(data)
         .enter()
         .append('rect')
-
-    select(node)
-      .selectAll('rect')
-      .data(data)
-      .exit()
-      .remove()
-
+        .style('fill', 'steelblue')
+        .attr('stroke', '#FFF')
+        .attr('x', (d,i) => i * barWidth)
+        .attr('y', d => innerWidth - yScale(d))
+        .attr('height', d => yScale(d))
+        .attr('width', barWidth)
+    
     select(node)
       .selectAll('text')
       .data(data)
       .enter()
       .append('text')
       .attr('x', (d,i) => i * barWidth + barWidth / 2)
-      .attr('y', size[1]-10)
+      .attr('y', innerWidth - 10)
       .attr('fill', '#000')
       .attr('dy', '.35em')
       .attr('text-anchor', 'middle')
       .text((d, i) => rates[i].currency)
-
-    select(node)
-        .selectAll('rect')
-        .data(data)
-        .style('fill', 'steelblue')
-        .attr('stroke', 'white')
-        .attr('x', (d,i) => i * barWidth)
-        .attr('y', d => size[1] - yScale(d))
-        .attr('height', d => yScale(d))
-        .attr('width', barWidth)
   }
 
   render() {
-    const { rates, baseCurrency } = this.state || {};
+    const { rates, baseCurrency, innerWidth } = this.state || {};
     return (
       <section>
         <Head>
@@ -94,7 +88,7 @@ class IndexPage extends Component {
           Cuántos pesos necesito para un:
         </h2>
         <div className="viz">
-          <svg ref={node => this.node = node} width={500} height={500} />
+          { innerWidth ? <svg ref={node => this.node = node} width={innerWidth} height={innerWidth} /> : null }
         </div>
         <style jsx>{`
           h1 {

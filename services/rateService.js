@@ -1,7 +1,7 @@
 import 'isomorphic-unfetch'
 
 // const apiUrl = 'http://0.0.0.0:3000';
-const apiUrl = 'http://45.55.12.200:49192';
+const apiUrl = 'http://api-currency.mintitmedia.com';
 
 export async function getRates() {
   const results = Promise.all([
