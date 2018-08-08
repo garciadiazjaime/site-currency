@@ -1,69 +1,29 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
-import { scaleLinear } from 'd3-scale'
-import { max } from 'd3-array'
-import { select } from 'd3-selection'
 
 import Rate from '../components/rate'
 import { renderRatesFor, formatRates, getBaseRate } from '../utils/rateUtil'
 import { getRates } from '../services/rateService'
+import { renderRatesComparison } from '../utils/graph'
 
 class IndexPage extends Component {
   constructor(props) {
     super(props);
-    this.createBarChart = this.createBarChart.bind(this)
+    this.height = 300
   }
 
   async componentDidMount() {
     const { rates } = await getRates()
     if (rates) {
       const baseCurrency = 'MXN'
+      const newRates = formatRates(rates, baseCurrency)
       this.setState({
-        rates: formatRates(rates, baseCurrency),
+        rates: newRates,
         baseCurrency: getBaseRate(rates, baseCurrency),
         innerWidth: window.innerWidth
       })
-      this.createBarChart(rates)
+      renderRatesComparison({ rates: newRates, node: this.node, height: this.height, width: window.innerWidth })
     }
-  }
-
-  createBarChart() {
-    const innerWidth = window.innerWidth
-
-    const { rates } = this.state
-    const data = rates.map(rate => rate.rate) || []
-    // const size = [500, 500]
-    const barWidth = innerWidth / rates.length // 50
-    const node = this.node
-    const dataMax = max(data)
-    const yScale = scaleLinear()
-       .domain([0, dataMax])
-       .range([0, 500])
-    
-
-    select(node)
-        .selectAll('rect')
-        .data(data)
-        .enter()
-        .append('rect')
-        .style('fill', 'steelblue')
-        .attr('stroke', '#FFF')
-        .attr('x', (d,i) => i * barWidth)
-        .attr('y', d => innerWidth - yScale(d))
-        .attr('height', d => yScale(d))
-        .attr('width', barWidth)
-    
-    select(node)
-      .selectAll('text')
-      .data(data)
-      .enter()
-      .append('text')
-      .attr('x', (d,i) => i * barWidth + barWidth / 2)
-      .attr('y', innerWidth - 10)
-      .attr('fill', '#000')
-      .attr('dy', '.35em')
-      .attr('text-anchor', 'middle')
-      .text((d, i) => rates[i].currency)
   }
 
   render() {
@@ -88,7 +48,7 @@ class IndexPage extends Component {
           Cuántos pesos necesito para un:
         </h2>
         <div className="viz">
-          { innerWidth ? <svg ref={node => this.node = node} width={innerWidth} height={innerWidth} /> : null }
+          { innerWidth ? <svg ref={node => this.node = node} width={innerWidth} height={this.height} /> : null }
         </div>
         <style jsx>{`
           h1 {
