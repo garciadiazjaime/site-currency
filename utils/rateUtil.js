@@ -10,10 +10,6 @@ export function formatRates(rates, currency) {
     }))
 }
 
-export function getBaseRate(rates, currency) {
-  return rates.find(rate => rate.currency === currency )
-}
-
 export function renderRatesFor(Component, rates, baseCurrency) {
   if (!rates || !rates.length) {
     return null

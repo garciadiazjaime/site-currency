@@ -1,19 +1,31 @@
 import React from 'react'
 
+import { triggerBarHoverState } from './rates-comparison'
 import{ truncate } from '../utils/rateUtil'
+import colors from '../config/colors'
 
-const Rate = ({ currency, rate, baseCurrency }) => currency && rate && baseCurrency && (
-  <div>
+export function triggerRateItemHoverState(index, state) {
+  const items = document.querySelectorAll('#rates-list div')
+  if (items && items[index]) {
+    items[index].style.backgroundColor = state ? colors.hover : null
+  }
+}
+
+const Rate = ({ index, currency, rate }) => currency && rate && (
+  <div onMouseEnter={() => triggerBarHoverState(index, true)} onMouseOut={() => triggerBarHoverState(index, false)} onBlur={() => triggerBarHoverState(index, false)}>
     <img src={`/static/images/flags/${currency}.jpg`} alt={currency} />
     <h3>1 {currency} </h3>
-    <b>{truncate(rate, 2)} pesos</b>
+    <b>{truncate(rate, 2)} mxn</b>
     <style jsx>{`
       div {
         display: flex;
         padding: 6px 0;
-        margin: 0 0 12px;
         padding: 12px;
         border-bottom: 1px solid #CCC;
+        cursor: pointer;
+      }
+      div:hover {
+        background-color: orange;
       }
       img {
         max-width: 25px;
@@ -31,18 +43,18 @@ const Rate = ({ currency, rate, baseCurrency }) => currency && rate && baseCurre
   </div>
 ) || null
 
-const RatesList = ({ rates, baseCurrency}) => {
+const RatesList = ({ rates }) => {
   if (!rates || !rates.length) {
     return null
   }
 
   return (
-    <section>
+    <section id="rates-list">
       {
         rates
           .sort((a, b) => a.rate - b.rate)
           .filter(rate => rate.currency !== 'MXN')
-          .map(rate => <Rate {...rate} baseCurrency={baseCurrency} key={rate.currency} />)
+          .map((rate, index) => <Rate {...rate} key={rate.currency} index={index} />)
       }
     </section>)
 }

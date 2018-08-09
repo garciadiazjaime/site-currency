@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 import RatesList from '../components/rates-list'
 import RatesComparision from '../components/rates-comparison'
-import { formatRates, getBaseRate } from '../utils/rateUtil'
+import { formatRates } from '../utils/rateUtil'
 import { getRates } from '../services/rateService'
 
 class IndexPage extends Component {
@@ -19,14 +19,13 @@ class IndexPage extends Component {
       const baseCurrency = 'MXN'
       const newRates = formatRates(rates, baseCurrency)
       this.setState({
-        rates: newRates,
-        baseCurrency: getBaseRate(rates, baseCurrency)
+        rates: newRates
       })
     }
   }
 
   render() {
-    const { rates, baseCurrency } = this.state
+    const { rates } = this.state
     return (
       <section>
         <Head>
@@ -39,10 +38,10 @@ class IndexPage extends Component {
         </h1>
 
         <h2>Cuántos pesos necesito para un:</h2>
-        <RatesList rates={rates} baseCurrency={baseCurrency} />
+        <RatesList rates={rates} />
 
         <h2>Cuántos pesos necesito para un:</h2>
-        { rates && <RatesComparision rates={rates} height={300} /> }
+        { rates && <RatesComparision rates={rates} height={240} /> }
 
         <style jsx>{`
           h1 {

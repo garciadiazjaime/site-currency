@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { scaleLinear, scaleBand } from 'd3-scale'
 import { select } from 'd3-selection'
 
-const colors = {
-  base: 'steelblue',
-  hover: 'orange',
-  line: 'white'
+import { triggerRateItemHoverState } from './rates-list'
+import colors from '../config/colors'
+
+export function triggerBarHoverState(index, state) {
+  select('#viz')
+    .selectAll('rect')
+    .style('fill', (d, i) => index === i && state ? colors.hover : colors.base)
 }
 
 export default class RatesComparision extends Component {
@@ -13,7 +16,7 @@ export default class RatesComparision extends Component {
   componentDidMount () {
     const { rates, height } = this.props
     if (rates && rates.length) {
-      const data = rates.map(rate => rate.rate) || []
+      const data = rates.map(rate => rate.rate)
       const dataMax = Math.max(...data)
       const xScale = scaleBand()
         .domain(Object.keys(rates))
@@ -22,12 +25,7 @@ export default class RatesComparision extends Component {
         .domain([0, dataMax])
         .range([0, height])
 
-      const div = select('body')
-        .append('div')
-        .attr('class', 'tooltip')
-        .style('opacity', 0)
-
-      select(this.node)
+      select('#viz')
         .selectAll('rect')
         .data(data)
         .enter()
@@ -38,16 +36,18 @@ export default class RatesComparision extends Component {
         .attr('y', d => height - yScale(d))
         .attr('height', d => yScale(d))
         .attr('width', () => xScale.bandwidth())
-        .on('mouseover', function() {
+        .on('mouseover', function(_, i) {
           select(this)
             .style('fill', colors.hover)
+            triggerRateItemHoverState(i, true)
         })
-        .on('mouseout', function() {
+        .on('mouseout', function(_, i) {
           select(this)
             .style('fill', colors.base)
+            triggerRateItemHoverState(i, false)
         })
 
-      select(this.node)
+      select('#viz')
         .selectAll('text')
         .data(data)
         .enter()
@@ -65,7 +65,7 @@ export default class RatesComparision extends Component {
     const { height } = this.props
     return (
       <section>
-        <svg ref={node => this.node = node} width={window.innerWidth} height={height} />
+        <svg id="viz" width={window.innerWidth} height={height} />
       </section>
     )
   }
