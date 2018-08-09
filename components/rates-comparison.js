@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import { scaleLinear, scaleBand } from 'd3-scale'
 import { select } from 'd3-selection'
 
+const colors = {
+  base: 'steelblue',
+  hover: 'orange',
+  line: 'white'
+}
+
 export default class RatesComparision extends Component {
 
   componentDidMount () {
@@ -16,17 +22,30 @@ export default class RatesComparision extends Component {
         .domain([0, dataMax])
         .range([0, height])
 
+      const div = select('body')
+        .append('div')
+        .attr('class', 'tooltip')
+        .style('opacity', 0)
+
       select(this.node)
-          .selectAll('rect')
-          .data(data)
-          .enter()
-          .append('rect')
-          .style('fill', 'steelblue')
-          .attr('stroke', '#FFF')
-          .attr('x', (d, i) => xScale(i))
-          .attr('y', d => height - yScale(d))
-          .attr('height', d => yScale(d))
-          .attr('width', () => xScale.bandwidth())
+        .selectAll('rect')
+        .data(data)
+        .enter()
+        .append('rect')
+        .style('fill', colors.base)
+        .attr('stroke', colors.line)
+        .attr('x', (d, i) => xScale(i))
+        .attr('y', d => height - yScale(d))
+        .attr('height', d => yScale(d))
+        .attr('width', () => xScale.bandwidth())
+        .on('mouseover', function() {
+          select(this)
+            .style('fill', colors.hover)
+        })
+        .on('mouseout', function() {
+          select(this)
+            .style('fill', colors.base)
+        })
 
       select(this.node)
         .selectAll('text')

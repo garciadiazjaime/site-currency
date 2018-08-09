@@ -5,8 +5,8 @@ import{ truncate } from '../utils/rateUtil'
 const Rate = ({ currency, rate, baseCurrency }) => currency && rate && baseCurrency && (
   <div>
     <img src={`/static/images/flags/${currency}.jpg`} alt={currency} />
-    <h3>{currency}</h3>
-    <b>{truncate(rate, 2)}</b>
+    <h3>1 {currency} </h3>
+    <b>{truncate(rate, 2)} pesos</b>
     <style jsx>{`
       div {
         display: flex;
