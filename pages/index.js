@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import Head from 'next/head'
 
-import Rate from '../components/rate'
-import { renderRatesFor, formatRates, getBaseRate } from '../utils/rateUtil'
+import RatesList from '../components/rates-list'
+import RatesComparision from '../components/rates-comparison'
+import { formatRates, getBaseRate } from '../utils/rateUtil'
 import { getRates } from '../services/rateService'
-import { renderRatesComparison } from '../utils/graph'
 
 class IndexPage extends Component {
   constructor(props) {
     super(props);
     this.height = 300
+    this.state = {}
   }
 
   async componentDidMount() {
@@ -19,15 +20,13 @@ class IndexPage extends Component {
       const newRates = formatRates(rates, baseCurrency)
       this.setState({
         rates: newRates,
-        baseCurrency: getBaseRate(rates, baseCurrency),
-        innerWidth: window.innerWidth
+        baseCurrency: getBaseRate(rates, baseCurrency)
       })
-      renderRatesComparison({ rates: newRates, node: this.node, height: this.height, width: window.innerWidth })
     }
   }
 
   render() {
-    const { rates, baseCurrency, innerWidth } = this.state || {};
+    const { rates, baseCurrency } = this.state
     return (
       <section>
         <Head>
@@ -38,18 +37,13 @@ class IndexPage extends Component {
           <img src="/static/images/flags/MXN.jpg" alt="" />
           Peso Mexicano
         </h1>
-        <h2>
-          Cuántos pesos necesito para un:
-        </h2>
-        <div>
-          {renderRatesFor(Rate, rates, baseCurrency)}
-        </div>
-        <h2>
-          Cuántos pesos necesito para un:
-        </h2>
-        <div className="viz">
-          { innerWidth ? <svg ref={node => this.node = node} width={innerWidth} height={this.height} /> : null }
-        </div>
+
+        <h2>Cuántos pesos necesito para un:</h2>
+        <RatesList rates={rates} baseCurrency={baseCurrency} />
+
+        <h2>Cuántos pesos necesito para un:</h2>
+        { rates && <RatesComparision rates={rates} height={300} /> }
+
         <style jsx>{`
           h1 {
             background: #000;

@@ -31,4 +31,20 @@ const Rate = ({ currency, rate, baseCurrency }) => currency && rate && baseCurre
   </div>
 ) || null
 
-export default Rate
+const RatesList = ({ rates, baseCurrency}) => {
+  if (!rates || !rates.length) {
+    return null
+  }
+
+  return (
+    <section>
+      {
+        rates
+          .sort((a, b) => a.rate - b.rate)
+          .filter(rate => rate.currency !== 'MXN')
+          .map(rate => <Rate {...rate} baseCurrency={baseCurrency} key={rate.currency} />)
+      }
+    </section>)
+}
+
+export default RatesList
