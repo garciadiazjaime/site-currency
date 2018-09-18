@@ -1,12 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`IndexPage main matches snapshot 1`] = `
-<div>
-  Tipo de Cambio: 
-  <br />
-  happy-rates
-  <br />
-  Venta/Compra del Dolar en México:
-  happy-rates
-</div>
+<section
+  className="jsx-1578069544"
+>
+  <SideEffect(Head)>
+    <title
+      className="jsx-1578069544"
+    >
+      Valor del Peso Mexicano en el Mundo
+    </title>
+    <meta
+      className="jsx-1578069544"
+      content="Cuántos pesos mexicanos necesito para comprar un dólar y otras monedas"
+      name="description"
+    />
+  </SideEffect(Head)>
+  <h1
+    className="jsx-1578069544"
+  >
+    <img
+      alt=""
+      className="jsx-1578069544"
+      src="/static/images/flags/MXN.jpg"
+    />
+    Peso Mexicano
+  </h1>
+  <h2
+    className="jsx-1578069544"
+  >
+    Cuántos pesos necesito para un:
+  </h2>
+  <RatesList />
+  <h2
+    className="jsx-1578069544"
+  >
+    Cuántos pesos necesito para un:
+  </h2>
+  <JSXStyle
+    css="h1.jsx-1578069544{background:#000;color:#FFF;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin:0px;padding:12px;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}h2.jsx-1578069544{margin:12px 12px 0 12px;font-size:18px;font-weight:normal;}img.jsx-1578069544{width:40px;height:40px;margin-right:10px;}"
+    styleId="1578069544"
+  />
+</section>
 `;

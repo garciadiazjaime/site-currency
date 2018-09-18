@@ -43,7 +43,7 @@ const Rate = ({ index, currency, rate }) => currency && rate && (
   </div>
 ) || null
 
-const RatesList = ({ rates }) => {
+const RatesList = ({ rates, baseRate }) => {
   if (!rates || !rates.length) {
     return null
   }
@@ -53,7 +53,7 @@ const RatesList = ({ rates }) => {
       {
         rates
           .sort((a, b) => a.rate - b.rate)
-          .filter(rate => rate.currency !== 'MXN')
+          .filter(rate => rate.currency !== baseRate)
           .map((rate, index) => <Rate {...rate} key={rate.currency} index={index} />)
       }
     </section>)

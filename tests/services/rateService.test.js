@@ -7,7 +7,13 @@ describe('rateService', () => {
     beforeEach(() => {
       global.fetch = jest.fn(() => ({
         json() {
-          return 'happy-rate'
+          return {
+            data: {
+              rate: [{
+                currency: 'currency'
+              }]
+            }
+          }
         }
       }))
     })
@@ -19,11 +25,7 @@ describe('rateService', () => {
     it('returns expected values', async () => {
       const response = await getRates()
 
-      expect(global.fetch.mock.calls).toMatchSnapshot()
-      expect(response).toEqual({
-        'rates': 'happy-rate',
-        'usdmxn': 'happy-rate'
-      })
+      expect(response).toEqual({ rates: [ { currency: 'currency' } ] })
     })
   })
 })

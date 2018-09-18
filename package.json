@@ -18,7 +18,8 @@
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ]
+    ],
+    "testURL" : "http://localhost/"
   },
   "dependencies": {
     "babel-preset-react": "^6.24.1",

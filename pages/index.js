@@ -14,13 +14,11 @@ class IndexPage extends Component {
   }
 
   async componentDidMount() {
-    const { rates } = await getRates()
-    if (rates) {
+    const { rates: originalRates } = await getRates()
+    if (originalRates) {
       const baseCurrency = 'MXN'
-      const newRates = formatRates(rates, baseCurrency)
-      this.setState({
-        rates: newRates
-      })
+      const rates = formatRates(originalRates, baseCurrency)
+      this.setState({ rates}) //eslint-disable-line
     }
   }
 

@@ -13,7 +13,7 @@ const AirbnbRate = ({ title, bathrooms, bedrooms, city, lat, lng, pictures, rati
     {
       pictures.map((picture, index) => (
         <div key={picture}>
-          <a href={picture} target="_blank">Img{index + 1 }</a>
+          <a href={picture} target="_blank" rel="noopener noreferrer">Img{index + 1 }</a>
         </div>)
       )
     }

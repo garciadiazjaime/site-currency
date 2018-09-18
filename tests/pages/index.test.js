@@ -16,9 +16,5 @@ describe('IndexPage', () => {
     it('matches snapshot', () => {
       expect(wrapper).toMatchSnapshot()
     })
-
-    it('calls renderRatesFor', () => {
-      expect(wrapper.text().includes('happy-rates')).toBe(true);
-    })
   })
 })

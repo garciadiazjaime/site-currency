@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rate main matches snapshot 1`] = `
+<section
+  id="rates-list"
+>
+  <Rate
+    currency="currency"
+    index={0}
+    key="currency"
+  />
+  <Rate
+    currency="currency"
+    index={1}
+    key="currency"
+  />
+</section>
+`;
