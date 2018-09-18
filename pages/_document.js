@@ -11,6 +11,7 @@ export default class MyDocument extends Document {
     return (
       <html lang="es">
         <Head>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-21817878-2" />
           <style>{`
             body {
               margin: 0;
@@ -19,6 +20,7 @@ export default class MyDocument extends Document {
           </style>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <meta name="description" content="peso mexicano" />
+          <link rel="shortcut icon" href="/static/images/favicon.png" />
         </Head>
         <body>
           <Main />

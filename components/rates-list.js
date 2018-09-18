@@ -12,7 +12,12 @@ export function triggerRateItemHoverState(index, state) {
 }
 
 const Rate = ({ index, currency, rate }) => currency && rate && (
-  <div onMouseEnter={() => triggerBarHoverState(index, true)} onMouseOut={() => triggerBarHoverState(index, false)} onBlur={() => triggerBarHoverState(index, false)}>
+  <div
+    onMouseOver={() => triggerBarHoverState(index, true)}
+    onMouseOut={() => triggerBarHoverState(index, false)}
+    onBlur={() => triggerBarHoverState(index, false)}
+    onFocus={() => triggerBarHoverState(index, false)}
+  >
     <img src={`/static/images/flags/${currency}.jpg`} alt={currency} />
     <h3>1 {currency} </h3>
     <b>{truncate(rate, 2)} mxn</b>
