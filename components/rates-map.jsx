@@ -17,44 +17,56 @@ export default class RatesMap extends Component {
 
   renderMap(rates) {
     console.log('rates', rates)
-    d3.json('https://d3-geomap.github.io/d3-geomap/topojson/world/countries.json')
+    d3.json('/static/json/world_countries.json')
       .then(countries => {
         // console.log('countries', countries)
-        const width = 960
-        const height = 1160
+        const width = 900
+        const height = 800
         const project = d3.geoMercator()
-          .scale(150)
+          .scale(130)
           .translate([width / 2, height / 2])
         const path = d3.geoPath().projection(project)
 
-        let svg = d3.select('svg')
+        const svg = d3.select('svg')
           .attr('width', width)
           .attr('height', height)
+
+        const rateBoard = d3.select('#rate-board')
 
         const colorRange = getColorRange()
 
         svg.selectAll('g')
-          .data(topojson.feature(countries, countries.objects.units).features)
+          // .data(topojson.feature(countries, countries.objects.units).features)
+          .data(countries.features)
           .enter()
           .append('path')
           .attr('d', path)
           .attr('fill', (d, i) => {
-            if (d.id === 'ATA') {
-              return '#FFF'
-            }
             if (d.id === 'USA') {
               return '#OOO'
             }
             return colorRange(rates[i % 8].rate)
           })
-          .attr('stroke', d => d.id === 'ATA' ? '#FFF' : '#000')
+          .attr('stroke','#000')
+          .style('stroke-width', 0.5)
+          .style('opacity',0.8)
+          .on('mouseover', d => {
+            console.log('over', d)
+            rateBoard
+              .text(d.properties.name)
+          })
+          .on('mouseout', d => {
+            rateBoard
+              .text(null)
+          })
     })
   }
 
   render() {
     return (
       <section id="rates-map">
-        <svg />
+        <div id="rate-board" style={{ height: '20px' }} />
+        <svg style={{ border: '1px solid #000' }} />
       </section>
     )
   }
